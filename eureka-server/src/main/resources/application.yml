@@ -1,0 +1,60 @@
+# 无参数启动
+spring:
+  application:
+    name: server-00
+server:
+  port: 8761
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+#    register-with-eureka: false  # 不会将自己也作为一个client进行注册
+#    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8762/eureka/, http://localhost:8763/eureka/ # 各server实例互相注册
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  #      base-path: /monitor
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+
+---
+# 启动参数：--spring.profiles.active=server-01
+spring:
+  profiles: server-01
+#  application:
+#    name: servier-01   # 单独设置name，会使得该实例显示为单独的Server
+server:
+  port: 8762
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka/, http://localhost:8763/eureka/
+
+---
+# 启动参数：--spring.profiles.active = server-02
+spring:
+  profiles: server-02
+#  application:
+#    name: servier-02
+server:
+  port: 8763
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8762/eureka/, http://localhost:8761/eureka/
