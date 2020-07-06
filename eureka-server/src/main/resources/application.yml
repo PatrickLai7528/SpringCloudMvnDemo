@@ -1,4 +1,4 @@
-# ÎŞ²ÎÊıÆô¶¯
+# æ— å‚æ•°å¯åŠ¨
 spring:
   application:
     name: server-00
@@ -7,12 +7,17 @@ server:
 eureka:
   instance:
     instance-id: ${spring.application.name}:${server.port}
+    lease-expiration-duration-in-seconds: 10
+    lease-renewal-interval-in-seconds: 5
   client:
-#    register-with-eureka: false  # ²»»á½«×Ô¼ºÒ²×÷ÎªÒ»¸öclient½øĞĞ×¢²á
-#    fetch-registry: false
+    register-with-eureka: false  # ä¸ä¼šå°†è‡ªå·±ä¹Ÿä½œä¸ºä¸€ä¸ªclientè¿›è¡Œæ³¨å†Œ
+    fetch-registry: false
     service-url:
-      defaultZone: http://localhost:8762/eureka/, http://localhost:8763/eureka/ # ¸÷serverÊµÀı»¥Ïà×¢²á
+      defaultZone: http://localhost:8761/eureka/, http://localhost:8762/eureka/, http://localhost:8763/eureka/ # å„serverå®ä¾‹äº’ç›¸æ³¨å†Œ
+    healthcheck:
+      enabled: true   # æ£€æµ‹å·²æ³¨å†Œçš„æœåŠ¡çš„å¥åº·çŠ¶æ€
 
+# Actuator Setting
 management:
   endpoints:
     web:
@@ -26,11 +31,11 @@ management:
       enabled: true
 
 ---
-# Æô¶¯²ÎÊı£º--spring.profiles.active=server-01
+# å¯åŠ¨å‚æ•°ï¼š--spring.profiles.active=server-01
 spring:
   profiles: server-01
 #  application:
-#    name: servier-01   # µ¥¶ÀÉèÖÃname£¬»áÊ¹µÃ¸ÃÊµÀıÏÔÊ¾Îªµ¥¶ÀµÄServer
+#    name: servier-01   # å•ç‹¬è®¾ç½®nameï¼Œä¼šä½¿å¾—è¯¥å®ä¾‹æ˜¾ç¤ºä¸ºå•ç‹¬çš„Server
 server:
   port: 8762
 eureka:
@@ -39,11 +44,13 @@ eureka:
   client:
 #    register-with-eureka: false
 #    fetch-registry: false
-    service-url:
-      defaultZone: http://localhost:8761/eureka/, http://localhost:8763/eureka/
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/, http://localhost:8763/eureka/
+    healthcheck:
+      enabled: true
 
 ---
-# Æô¶¯²ÎÊı£º--spring.profiles.active = server-02
+# å¯åŠ¨å‚æ•°ï¼š--spring.profiles.active = server-02
 spring:
   profiles: server-02
 #  application:
@@ -56,5 +63,7 @@ eureka:
   client:
 #    register-with-eureka: false
 #    fetch-registry: false
-    service-url:
-      defaultZone: http://localhost:8762/eureka/, http://localhost:8761/eureka/
+#    service-url:
+#      defaultZone: http://localhost:8762/eureka/, http://localhost:8761/eureka/
+    healthcheck:
+      enabled: true
