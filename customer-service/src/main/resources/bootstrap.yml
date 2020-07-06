@@ -1,0 +1,21 @@
+# 需要在config-server加载application.yml的属性值，因此需要在application.yml之前进行加载，通过bootstrap.yml来加载
+spring:
+  application:
+    name: customer-service
+  cloud:
+    config:
+      uri: http://localhost:8889  # config-server的地址，从config-server读取的文件为{name}-{profile}.yml或properties
+      name: customer-service    # 默认用spring.application.name，spring.cloud.name可以进行覆盖
+      profile: prod   # 默认用spring.profiles.active，用spring.config.profile可以进行覆盖
+      label: master   # 选取哪个分支的文件，默认为master
+      discovery:
+        enabled: true
+        service-id: config-server
+eureka:
+  client:
+    service-url:
+      register-with-eureka: true
+      fetch-registry: true
+      defaultZone: http://localhost:8761/eureka/
+#  instance:
+#    preferIpAddress: true

@@ -1,1 +1,22 @@
+server:
+  port: 8088
 
+# Actuator
+management:
+  security:
+    enabled: false # 指定访问信息不进行用户验证
+  endpoint:
+    shutdown:
+      enabled: false
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+#data:
+#  env: ppp
+#  user:
+#    username: 111
+#    password: 222

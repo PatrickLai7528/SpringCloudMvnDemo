@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="EurekaClientApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="Demo Run Configurations">
+  <configuration default="false" name="Eureka-Client-01" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="Eureka-Clients">
     <module name="eureka-client" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.eurekaclient.EurekaClientApplication" />
     <option name="ALTERNATIVE_JRE_PATH" />

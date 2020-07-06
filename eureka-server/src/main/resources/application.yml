@@ -1,7 +1,7 @@
 # 无参数启动
 spring:
   application:
-    name: server-00
+    name: eureka-server # 服务节点名称
 server:
   port: 8761
 eureka:
@@ -9,14 +9,17 @@ eureka:
     instance-id: ${spring.application.name}:${server.port}
     lease-expiration-duration-in-seconds: 10
     lease-renewal-interval-in-seconds: 5
+    hostname: eureka01
   client:
-    register-with-eureka: false  # 不会将自己也作为一个client进行注册
-    fetch-registry: false
+#    register-with-eureka: false  # 是否将自己也作为一个client进行注册，理论上应该关掉，但单机模拟集群需要开启
+#    fetch-registry: false   # 是否从Eureka-Server中获取服务注册信息
     service-url:
-      defaultZone: http://localhost:8761/eureka/, http://localhost:8762/eureka/, http://localhost:8763/eureka/ # 各server实例互相注册
+      defaultZone: http://eureka01:8761/eureka/, http://eureka02:8762/eureka/, http://eureka03:8763/eureka/ # 各server实例互相注册
     healthcheck:
       enabled: true   # 检测已注册的服务的健康状态
-
+  server:
+    enable-self-preservation: false   # 关掉自我保护机制（方便测试有服务挂掉）
+    eviction-interval-timer-in-ms: 5000   #驱逐计时器扫描失效服务的间隔时间，单位ms（默认为60*1000ms）
 # Actuator Setting
 management:
   endpoints:
@@ -29,41 +32,33 @@ management:
       show-details: always
     shutdown:
       enabled: true
+info:   # \actuator\info
+  app:
+    name: @project.artifactId@
+    encoding: @project.build.sourceEncoding@
+    source: @java.version@
+    profile: ${spring.profiles}
 
 ---
-# 启动参数：--spring.profiles.active=server-01
+# 启动参数：--spring.profiles.active=server-02
 spring:
-  profiles: server-01
+  profiles: server-02 # 命令行参数
 #  application:
 #    name: servier-01   # 单独设置name，会使得该实例显示为单独的Server
 server:
   port: 8762
 eureka:
   instance:
-    instance-id: ${spring.application.name}:${server.port}
-  client:
-#    register-with-eureka: false
-#    fetch-registry: false
-#    service-url:
-#      defaultZone: http://localhost:8761/eureka/, http://localhost:8763/eureka/
-    healthcheck:
-      enabled: true
+    hostname: eureka02
 
 ---
-# 启动参数：--spring.profiles.active = server-02
+# 启动参数：--spring.profiles.active = server-03
 spring:
-  profiles: server-02
+  profiles: server-03
 #  application:
 #    name: servier-02
 server:
   port: 8763
 eureka:
   instance:
-    instance-id: ${spring.application.name}:${server.port}
-  client:
-#    register-with-eureka: false
-#    fetch-registry: false
-#    service-url:
-#      defaultZone: http://localhost:8762/eureka/, http://localhost:8761/eureka/
-    healthcheck:
-      enabled: true
+    hostname: eureka03

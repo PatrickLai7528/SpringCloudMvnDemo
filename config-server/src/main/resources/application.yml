@@ -2,12 +2,14 @@ server:
   port: 8889
 spring:
   application:
-    name: config-server-00
+    name: config-server
   cloud:
     config:
       server:
         git:
           uri: https://github.com/TwinkleSevenStream/spring-cloud-config-demo/  # 配置文件的git远程目录
-          search-paths: Configs # 读取配置文件的路径
-
-
+          search-paths: Configs # 读取配置文件的路径，从config-server读取的文件名为{name}-{profile}.yml或properties
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
