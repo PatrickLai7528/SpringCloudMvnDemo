@@ -16,7 +16,7 @@ SpringCloud微服务开发Demo
 
 `.idea`  存放intellij idea的相关配置信息，保存了Run Configuration，可以在idea中一键启动各个节点。
 
-`config-server`  配置服务，从Github仓库中读取需要的配置信息。默认占用端口：8889。
+`config-server`  配置服务，从Github仓库中读取需要的配置信息。配置信息仓库地址。默认占用端口：8889。
 `customer-service`  业务服务，也作为一个服务注册到Eureka-Server中，也可以从Eureka-Server中发现服务，也作为Config-Client从Config-Server读取配置信息。默认占用端口：8088
 
 `eureka-client`  作为服务提供方注册在Eureka-Server中，yml中配置了五个节点。默认占用端口：8081，8082，8083，8084，8085
@@ -67,9 +67,8 @@ Eureka-Client：--spring.profiles.active=client-02
 
 ## 额外说明
 
-所有项目均添加了Actuator，可以对`http://host:port/actuator/info`发送Get请求获取当前节点的信息。
-
-
+1. 所有项目均添加了Actuator，可以对`http://host:port/actuator/info`发送Get请求获取当前节点的信息。
+2. `Config-Server`读取的配置信息的地址为：`https://github.com/TwinkleSevenStream/spring-cloud-config-demo`
 
 
 
