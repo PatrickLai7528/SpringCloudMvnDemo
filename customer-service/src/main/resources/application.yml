@@ -4,7 +4,7 @@ server:
 # Actuator
 management:
   security:
-    enabled: false # Ö¸¶¨·ÃÎÊĞÅÏ¢²»½øĞĞÓÃ»§ÑéÖ¤
+    enabled: false # æŒ‡å®šè®¿é—®ä¿¡æ¯ä¸è¿›è¡Œç”¨æˆ·éªŒè¯
   endpoint:
     shutdown:
       enabled: false

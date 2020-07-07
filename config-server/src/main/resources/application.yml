@@ -10,6 +10,8 @@ spring:
           uri: https://github.com/TwinkleSevenStream/spring-cloud-config-demo/  # 配置文件的git远程目录
           search-paths: Configs # 读取配置文件的路径，从config-server读取的文件名为{name}-{profile}.yml或properties
 eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://eureka01:8761/eureka/
